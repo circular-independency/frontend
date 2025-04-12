@@ -1,5 +1,5 @@
 @if (menuExists) {
   <p>Menu exists</p>
 } @else {
-  <app-menu-prompt></app-menu-prompt>
+  <app-menu-prompt (promptSubmit)="onPromptSubmit($event)"></app-menu-prompt>
 }

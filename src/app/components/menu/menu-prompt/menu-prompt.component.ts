@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.component';
 
@@ -13,8 +13,10 @@ import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.com
   styleUrl: './menu-prompt.component.scss'
 })
 export class MenuPromptComponent {
+
+  @Output() promptSubmit = new EventEmitter<string>();
+
   onPromptSubmit(prompt: string) {
-    console.log('Menu prompt submitted:', prompt);
-    // Add your menu generation logic here
+    this.promptSubmit.emit(prompt);
   }
 }
