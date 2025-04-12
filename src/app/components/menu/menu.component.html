@@ -1,5 +1,5 @@
 @if (menuExists()) {
-  <p>Menu exists</p>
+  <app-menu-view [menuInput]="menu()"></app-menu-view>
 } @else {
   <app-menu-prompt (menuGenerated)="onMenuGenerated($event)"></app-menu-prompt>
 }

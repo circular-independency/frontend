@@ -1,0 +1,78 @@
+@if (menu()) {
+<div class="meal-plan-list">
+  @for (day of menuList(); track day.day) {
+      <mat-expansion-panel class="day-card">
+        <mat-expansion-panel-header>
+          <div class="day-card-content">
+            <div class="day-name"  (click)="onDayClick(day.day, $event)">
+              <h2>{{ day.day }}</h2>
+            </div>
+            <div class="meals">
+              <div class="meal" (click)="onMealClick(day.day, 'breakfast', day.meals.breakfast.name); $event.stopPropagation()">
+                <span class="meal-type">Breakfast</span>
+                <span class="meal-name">{{ day.meals.breakfast.name }}</span>
+              </div>
+              <mat-divider vertical></mat-divider>
+              <div class="meal" (click)="onMealClick(day.day, 'lunch', day.meals.lunch.name); $event.stopPropagation()">
+                <span class="meal-type">Lunch</span>
+                <span class="meal-name">{{ day.meals.lunch.name }}</span>
+              </div>
+              <mat-divider vertical></mat-divider>
+              <div class="meal" (click)="onMealClick(day.day, 'dinner', day.meals.dinner.name); $event.stopPropagation()">
+                <span class="meal-type">Dinner</span>
+                <span class="meal-name">{{ day.meals.dinner.name }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        
+        <div class="ingredients-content">
+          <div class="ingredients-grid">
+            <div class="meal-ingredients">
+              <mat-list>
+                @for (ingredient of day.meals.breakfast.ingredients; track ingredient.name) {
+                  <mat-list-item>
+                    <div class="ingredient-container">
+                      <div class="ingredient-name">{{ ingredient.name }}</div>
+                      <div class="ingredient-amount"> - {{ ingredient.amount }} {{ ingredient.unit }}</div>
+                    </div>
+                  </mat-list-item>
+                }
+              </mat-list>
+            </div>
+            <mat-divider vertical></mat-divider>
+            <div class="meal-ingredients">
+              <mat-list>
+                @for (ingredient of day.meals.lunch.ingredients; track ingredient.name) {
+                  <mat-list-item>
+                    <div class="ingredient-container">
+                      <div class="ingredient-name">{{ ingredient.name }}</div>
+                      <div class="ingredient-amount"> - {{ ingredient.amount }} {{ ingredient.unit }}</div>
+                    </div>
+                  </mat-list-item>
+                }
+              </mat-list>
+            </div>
+            <mat-divider vertical></mat-divider>
+            <div class="meal-ingredients">
+              <mat-list>
+                @for (ingredient of day.meals.dinner.ingredients; track ingredient.name) {
+                  <mat-list-item>
+                    <div class="ingredient-container">
+                      <div class="ingredient-name">{{ ingredient.name }}</div>
+                      <div class="ingredient-amount"> - {{ ingredient.amount }} {{ ingredient.unit }}</div>
+                    </div>
+                    
+                  </mat-list-item>
+                }
+              </mat-list>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+  }
+</div>
+}
+@else {
+  <p>No meal plan available</p>
+}
