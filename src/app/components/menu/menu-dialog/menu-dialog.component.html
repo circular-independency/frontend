@@ -1,0 +1,18 @@
+<div mat-dialog-title>Menu Details</div>
+<mat-dialog-content>
+  <div class="dialog-content">
+    <ng-container *ngIf="!data.mealType">
+      <p>Update the menu for <strong>{{ data.day }}</strong> so that it will...</p>
+    </ng-container>
+    <ng-container *ngIf="data.mealType">
+      <p>Update the <strong>{{ data.mealType }}</strong> meal "<strong>{{ data.mealName }}</strong>" for <strong>{{ data.day }}</strong> so that it will...</p>
+    </ng-container>
+    <app-prompt-input
+      placeholder="Describe what you want to change..."
+      (promptSubmit)="onPromptSubmit($event)">
+    </app-prompt-input>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions> 

@@ -6,6 +6,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { menuSample } from '../../../services/schemas/menu-data';
+import { MatDialog } from '@angular/material/dialog';
+import { MenuDialogComponent } from '../menu-dialog/menu-dialog.component';
 
 @Component({
   selector: 'app-menu-view',
@@ -16,6 +18,8 @@ import { menuSample } from '../../../services/schemas/menu-data';
 })
 export class MenuViewComponent {
   @Input() menuInput: WeeklyMealPlan = menuSample;
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['menuInput']) {
@@ -46,11 +50,19 @@ export class MenuViewComponent {
     console.log('Day clicked:', day);
     event.stopPropagation();
     event.preventDefault();
-    // You can add your day click logic here
+    this.openDialog(day);
   }
 
   onMealClick(day: string, mealType: string, mealName: string) {
     console.log('Meal clicked:', { day, mealType, mealName });
-    // You can add your meal click logic here
+    this.openDialog(day, mealType, mealName);
+  }
+
+  private openDialog(day: string, mealType?: string, mealName?: string) {
+    this.dialog.open(MenuDialogComponent, {
+      width: '600px',
+      panelClass: 'menu-dialog',
+      data: { day, mealType, mealName }
+    });
   }
 }

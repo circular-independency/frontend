@@ -11,9 +11,8 @@ import { MenuViewComponent } from "./menu-view/menu-view.component";
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-
   menu = signal<WeeklyMealPlan>(menuSample);
-  menuExists = signal(false);
+  menuExists = signal(true);
 
   onMenuGenerated(menu: any) {
     this.menuExists.set(true);
