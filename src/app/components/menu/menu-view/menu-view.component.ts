@@ -15,6 +15,8 @@ import { menuSample } from '../../../services/schemas/menu-data';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuDialogComponent } from '../menu-dialog/menu-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.component';
+import { GeminiServiceService } from '../../../services/gemini-service.service';
 @Component({
   selector: 'app-menu-view',
   standalone: true,
@@ -25,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatExpansionModule,
     MatListModule,
     MatButtonModule,
+    PromptInputComponent
   ],
   templateUrl: './menu-view.component.html',
   styleUrl: './menu-view.component.scss',
@@ -32,7 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class MenuViewComponent {
   @Input() menuInput: WeeklyMealPlan = menuSample;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private geminiService: GeminiServiceService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['menuInput']) {
@@ -41,6 +44,8 @@ export class MenuViewComponent {
   }
 
   menu = signal<WeeklyMealPlan>(this.menuInput);
+
+  menuJson = computed(() => JSON.stringify(this.menu())); 
 
   menuList = computed(() => {
     const menu = [];
@@ -53,6 +58,8 @@ export class MenuViewComponent {
     menu.push({ day: 'Sunday', meals: this.menu().sunday });
     return menu;
   });
+
+  promptLoading = signal(false);
 
   expandedDay: string | null = null;
 
@@ -91,6 +98,14 @@ export class MenuViewComponent {
       if (result) {
         this.menu.set(result);
       }
+    });
+  }
+
+  onPromptSubmit(prompt: string) {
+    this.promptLoading.set(true);
+    this.geminiService.updateMealPlan(prompt, this.menu()).then((result) => {
+      this.menu.set(result);
+      this.promptLoading.set(false);
     });
   }
 }

@@ -110,6 +110,17 @@ export class GeminiServiceService {
     return this.generateJsonResponse('mealPlanUpdateMeal', pr, mealPlanSchema);
   }
 
+
+  async updateMealPlan(prompt: string, mealPlan: WeeklyMealPlan): Promise<WeeklyMealPlan> {
+    const pr = `Update the meal plan based on the following information: ${prompt}. The current meal plan is: ${JSON.stringify(
+      mealPlan
+    )}.
+    Make sure to update the meal plan in the same format as the original meal plan.
+    Make sure to also update the meal names when changing them.
+    `;
+    return this.generateJsonResponse('mealPlanUpdate', pr, mealPlanSchema);
+  }
+
   suggestionsPostprompt = `
   Make sure that the suggestions are not too long, but specific.
   `

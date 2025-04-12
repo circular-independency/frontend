@@ -29,7 +29,7 @@
   @if (suggestions().length > 0) {
     @for (suggestion of suggestions(); track suggestion) {
     <div class="suggestion" (click)="prompt = suggestion; onSubmit()">
-      <mat-icon>arrow_forward</mat-icon>
+      <mat-icon style="min-width: 24px;">arrow_forward</mat-icon>
       <span>{{ suggestion }}</span>
     </div>
     }
