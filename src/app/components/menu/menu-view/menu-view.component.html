@@ -1,4 +1,15 @@
 @if (menu()) {
+  <div class="meal-update-buttons">
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="onUpdateMeal('breakfast')">Breakfasts</button> 
+    </div>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="onUpdateMeal('lunch')">Lunches</button> 
+    </div>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="onUpdateMeal('dinner')">Dinners</button> 
+    </div>
+  </div>
 <div class="meal-plan-list">
   @for (day of menuList(); track day.day) {
       <mat-expansion-panel class="day-card">

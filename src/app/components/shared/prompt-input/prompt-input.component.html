@@ -21,3 +21,22 @@
     </div>
   </button>
 </div>
+<div class="suggestions-container" [class]="suggestionsType === 'generalGeneration' ? 'suggestions-container-80-width' : 'suggestions-container-full-width'">
+  <div class="suggestions-header">
+    <mat-icon>tips_and_updates</mat-icon>
+    <h4>Suggestions</h4>
+  </div>
+  @if (suggestions().length > 0) {
+    @for (suggestion of suggestions(); track suggestion) {
+    <div class="suggestion" (click)="prompt = suggestion; onSubmit()">
+      <mat-icon>arrow_forward</mat-icon>
+      <span>{{ suggestion }}</span>
+    </div>
+    }
+  } 
+  @if (suggestionsLoading() && suggestions().length === 0) {
+    <div class="loading-container">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  }
+</div>

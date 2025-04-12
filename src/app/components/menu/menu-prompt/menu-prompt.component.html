@@ -8,16 +8,7 @@
     class="prompt-input"
     [placeholder]="'Type something or pick one from prompt gallery'"
     [loading]="loading()"
+    [suggestionsType]="'generalGeneration'"
     (promptSubmit)="onPromptSubmit($event)"
   ></app-prompt-input>
-
-  <!-- <div class="suggestions">
-    <h3>Suggestions:</h3>
-    <div class="suggestion-chips">
-      <button mat-stroked-button *ngFor="let suggestion of suggestions" 
-              (click)="prompt = suggestion">
-        {{ suggestion }}
-      </button>
-    </div>
-  </div> -->
 </div>

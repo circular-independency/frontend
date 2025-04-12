@@ -10,7 +10,10 @@
     <app-prompt-input
       placeholder="Describe what you want to change..."
       (promptSubmit)="onPromptSubmit($event)"
-      [loading]="loading()">
+      [loading]="loading()"
+      [suggestionsType]="suggestionsType()"
+      [suggestionsContext]="suggestionsContext()"
+      >
     </app-prompt-input>
   </div>
 </mat-dialog-content>

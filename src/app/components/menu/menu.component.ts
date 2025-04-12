@@ -12,7 +12,7 @@ import { MenuViewComponent } from "./menu-view/menu-view.component";
 })
 export class MenuComponent {
   menu = signal<WeeklyMealPlan>(menuSample);
-  menuExists = signal(false);
+  menuExists = signal(true);
 
   onMenuGenerated(menu: any) {
     this.menuExists.set(true);

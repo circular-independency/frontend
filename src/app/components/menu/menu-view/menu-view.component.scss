@@ -1,8 +1,27 @@
+.meal-update-buttons {
+  margin-left: 170px;
+  margin-right: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  gap: 1rem;
+}
+
 .meal-plan-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
+  padding-top: 0;
   
   .day-card {
     border-radius: 1rem;
