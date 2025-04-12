@@ -4,6 +4,14 @@ import { environment } from '../../environments/environment';
 import { mealPlanSchema } from './schemas/meal-plan.schema';
 import { WeeklyMealPlan } from './schemas/meal-plan.schema';
 
+const preprompt = `
+  You are a helpful assistant that can help me generate and update my meal plan.
+  You will be given a prompt and sometimes an existing meal plan.
+  You will need to update the meal plan based on the prompt, or generate a new meal plan when asked.
+  You will need to return the updated meal plan in the same format as the original meal plan.
+  Make sure that all the units are in grams, and ONLY grams. 
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +37,7 @@ export class GeminiServiceService {
 
       const result = await this.genAI.models.generateContent({
         model: 'gemini-2.0-flash',
-        contents: prompt,
+        contents: preprompt + prompt,
         config: {
           responseMimeType: 'application/json',
           responseSchema: jsonSchema
