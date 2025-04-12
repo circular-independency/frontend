@@ -158,7 +158,6 @@ export class GeminiServiceService {
   }
 
   generateSpecificUpdateSuggestionsSingleMeal(mealName: string): Promise<string[]> {
-    console.log('mealName', mealName);
     const pr = `Generate a list of suggestions for updating the meal "${mealName}" in a meal plan.
     Make sure that the suggestions are specific to modifying the meal "${mealName}", such as ingredient substitutions or portion adjustments.
     Return the suggestions in a JSON array like ${JSON.stringify(suggestionsSchema)}

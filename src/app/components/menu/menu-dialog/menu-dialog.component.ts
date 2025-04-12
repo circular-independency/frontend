@@ -35,10 +35,6 @@ export class MenuDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private geminiService: GeminiServiceService
   ) {
-
-    effect(() => {
-      console.log('suggestionsContext', this.suggestionsContext());
-    });
   }
 
   loading = computed(() => {

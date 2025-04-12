@@ -54,7 +54,6 @@ export class PromptInputComponent {
     if (this.suggestionsType === 'generalGeneration') {
       this.suggestionsLoading.set(true);
       this.suggestionsService.getGeneralGenerationSuggestions().then((suggestions) => {
-        console.log('suggestions', suggestions);
         this.suggestions.set(suggestions);
         this.suggestionsLoading.set(false);
       });
