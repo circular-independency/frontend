@@ -16,7 +16,6 @@ export class MenuComponent {
 
   onMenuGenerated(menu: any) {
     this.menuExists.set(true);
-    console.log('Menu generated:', menu);
     this.menu.set(menu);
   }
 }

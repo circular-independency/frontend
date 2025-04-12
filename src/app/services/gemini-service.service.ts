@@ -66,4 +66,18 @@ export class GeminiServiceService {
     const pr = `Generate a meal plan for the week based on the following information: ${prompt}`;
     return this.generateJsonResponse('mealPlanInitial', pr, mealPlanSchema);
   }
+
+  updateMealPlanDay(prompt: string, mealPlan: WeeklyMealPlan, day: string): Promise<WeeklyMealPlan> {
+    const pr = `Update the meal plan for ${day} based on the following information: ${prompt}. The current meal plan is: ${JSON.stringify(mealPlan)}.
+    Make sure to update the meal plan in the same format as the original meal plan.
+    Be sure to just update the specific meals for ${day} that are being updated, and leave everything else EXACTLY the same`;
+    return this.generateJsonResponse('mealPlanUpdateDay', pr, mealPlanSchema);
+  }
+
+  updateMealPlanMeal(prompt: string, mealPlan: WeeklyMealPlan, day: string, mealType: string): Promise<WeeklyMealPlan> {
+    const pr = `Update the ${mealType} meal for ${day} based on the following information: ${prompt}. The current meal plan is: ${JSON.stringify(mealPlan)}.
+    Make sure to update the meal plan in the same format as the original meal plan.
+    Be sure to just update the specific meals for ${day} and ${mealType} that are being updated, and leave everything else EXACTLY the same`;
+    return this.generateJsonResponse('mealPlanUpdateMeal', pr, mealPlanSchema);
+  }
 }

@@ -9,7 +9,8 @@
     </ng-container>
     <app-prompt-input
       placeholder="Describe what you want to change..."
-      (promptSubmit)="onPromptSubmit($event)">
+      (promptSubmit)="onPromptSubmit($event)"
+      [loading]="loading()">
     </app-prompt-input>
   </div>
 </mat-dialog-content>

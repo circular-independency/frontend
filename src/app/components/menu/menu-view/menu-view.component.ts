@@ -30,7 +30,6 @@ export class MenuViewComponent {
   menu = signal<WeeklyMealPlan>(this.menuInput);
 
   menuList = computed(() => {
-    console.log(this.menu());
     const menu = []
     menu.push({day: 'Monday', meals: this.menu().monday})
     menu.push({day: 'Tuesday', meals: this.menu().tuesday})
@@ -47,22 +46,26 @@ export class MenuViewComponent {
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   onDayClick(day: string, event: Event) {
-    console.log('Day clicked:', day);
     event.stopPropagation();
     event.preventDefault();
     this.openDialog(day);
   }
 
   onMealClick(day: string, mealType: string, mealName: string) {
-    console.log('Meal clicked:', { day, mealType, mealName });
     this.openDialog(day, mealType, mealName);
   }
 
   private openDialog(day: string, mealType?: string, mealName?: string) {
-    this.dialog.open(MenuDialogComponent, {
+    const ref = this.dialog.open(MenuDialogComponent, {
       width: '600px',
       panelClass: 'menu-dialog',
-      data: { day, mealType, mealName }
+      data: { day, mealType, mealName, menu: this.menu() }
+    });
+
+    ref.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.menu.set(result);
+      }
     });
   }
 }
