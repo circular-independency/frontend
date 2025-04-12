@@ -1,0 +1,12 @@
+<div class="input-container">
+  <input 
+    type="text" 
+    [(ngModel)]="prompt"
+    [placeholder]="placeholder"
+    (keyup.enter)="onSubmit()"
+  >
+  <button mat-flat-button color="primary" class="run-button" (click)="onSubmit()">
+    Run
+    <mat-icon>keyboard_return</mat-icon>
+  </button>
+</div>

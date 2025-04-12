@@ -1,0 +1,22 @@
+<div class="menu-prompt-container">
+  <h1 class="title">
+    <mat-icon>restaurant_menu</mat-icon>
+    Create a menu for this week
+  </h1>
+
+  <app-prompt-input
+    class="prompt-input"
+    [placeholder]="'Type something or pick one from prompt gallery'"
+    (promptSubmit)="onPromptSubmit($event)"
+  ></app-prompt-input>
+
+  <!-- <div class="suggestions">
+    <h3>Suggestions:</h3>
+    <div class="suggestion-chips">
+      <button mat-stroked-button *ngFor="let suggestion of suggestions" 
+              (click)="prompt = suggestion">
+        {{ suggestion }}
+      </button>
+    </div>
+  </div> -->
+</div>

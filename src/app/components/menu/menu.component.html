@@ -1,1 +1,5 @@
-<p>menu works!</p>
+@if (menuExists) {
+  <p>Menu exists</p>
+} @else {
+  <app-menu-prompt></app-menu-prompt>
+}

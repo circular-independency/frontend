@@ -8,6 +8,11 @@
     width: 300px;
     background-color: var(--mat-sys-surface-container);
   }
+
+  mat-drawer-content {
+    flex: 1;
+    overflow-y: auto;
+  }
 }
 
 
