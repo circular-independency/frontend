@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.component';
+import { GeminiServiceService } from '../../../services/gemini-service.service';
+import { mealPlanSchema } from '../../../services/schemas/meal-plan.schema';
 
 @Component({
   selector: 'app-menu-prompt',
@@ -13,10 +15,14 @@ import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.com
   styleUrl: './menu-prompt.component.scss'
 })
 export class MenuPromptComponent {
+  @Output() menuGenerated = new EventEmitter<any>();
 
-  @Output() promptSubmit = new EventEmitter<string>();
+  private geminiService = inject(GeminiServiceService);
 
-  onPromptSubmit(prompt: string) {
-    this.promptSubmit.emit(prompt);
+  loading = computed(() => this.geminiService.activePrompt().active);
+
+  async onPromptSubmit(prompt: string) {
+    const menu = await this.geminiService.generateJsonResponse('mealPlanInitial', prompt, mealPlanSchema);
+    this.menuGenerated.emit(menu);
   }
 }

@@ -1,12 +1,23 @@
-<div class="input-container">
-  <input 
-    type="text" 
+<div class="input-container" [class.loading]="loading">
+  <input
+    type="text"
     [(ngModel)]="prompt"
     [placeholder]="placeholder"
     (keyup.enter)="onSubmit()"
+  />
+  @if (loading) {
+  <mat-spinner diameter="24" class="spinner"></mat-spinner>
+  }
+  <button
+    mat-flat-button
+    color="primary"
+    class="run-button"
+    (click)="onSubmit()"
+    [disabled]="loading"
   >
-  <button mat-flat-button color="primary" class="run-button" (click)="onSubmit()">
-    Run
-    <mat-icon>keyboard_return</mat-icon>
+    <div class="button-content">
+      <span>Run</span>
+      <mat-icon>keyboard_return</mat-icon>
+    </div>
   </button>
 </div>

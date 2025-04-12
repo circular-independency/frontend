@@ -7,6 +7,7 @@
   <app-prompt-input
     class="prompt-input"
     [placeholder]="'Type something or pick one from prompt gallery'"
+    [loading]="loading()"
     (promptSubmit)="onPromptSubmit($event)"
   ></app-prompt-input>
 
