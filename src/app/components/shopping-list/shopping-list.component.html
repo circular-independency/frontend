@@ -9,11 +9,11 @@
         <div class="shop-header">
           <h3>{{ shop | titlecase }}</h3>
           <div class="shop-actions">
-            <button mat-flat-button color="primary">
+            <button mat-flat-button color="primary" (click)="shopBU(shop)">
               <mat-icon>shopping_cart</mat-icon>
               Shop Online
             </button>
-            <button mat-flat-button color="accent">
+            <button mat-flat-button color="accent" (click)="shoppingDone(shop)">
               <mat-icon>check_circle</mat-icon>
               Shopping Done
             </button>

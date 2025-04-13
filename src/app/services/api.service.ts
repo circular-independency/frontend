@@ -18,4 +18,12 @@ export class ApiService {
   getShoppingList(): Observable<any> {
     return this.http.get(`${this.apiUrl}/shopping/list/1`);
   }
+
+  shoppingDone(shop: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/shopping/shop/${shop}/1/0`);
+  }
+
+  shopBU(shop: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/shopping/shop/${shop}/1/1`);
+  }
 }

@@ -23,7 +23,7 @@ export interface ShoppingItem {
     MatCheckboxModule, 
     MatIconModule, 
     TitleCasePipe,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.scss'
@@ -62,4 +62,18 @@ export class ShoppingListComponent {
       console.log(this.shoppingList());
     });
   }
+
+  shopBU(shop: string) {
+    this.apiService.shopBU(shop).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  shoppingDone(shop: string) {
+    this.apiService.shoppingDone(shop).subscribe((result) => {
+      console.log(result);
+    });
+  }
+  
+  
 }
