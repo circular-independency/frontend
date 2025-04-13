@@ -216,3 +216,20 @@
     font-size: 1.2em;
   }
 }
+
+@keyframes flash {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: var(--mat-sys-primary);
+    opacity: 0.2;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.flash {
+  animation: flash 1s ease-in-out;
+}

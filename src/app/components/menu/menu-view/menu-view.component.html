@@ -37,6 +37,7 @@
             <div class="meals">
               <div
                 class="meal"
+                [id]="'meal-' + day.day.toLowerCase() + '-breakfast'"
                 (click)="
                   onMealClick(day.day, 'breakfast', day.meals.breakfast.name);
                   $event.stopPropagation()
@@ -47,6 +48,7 @@
               <mat-divider vertical></mat-divider>
               <div
                 class="meal"
+                [id]="'meal-' + day.day.toLowerCase() + '-lunch'"
                 (click)="
                   onMealClick(day.day, 'lunch', day.meals.lunch.name);
                   $event.stopPropagation()
@@ -57,6 +59,7 @@
               <mat-divider vertical></mat-divider>
               <div
                 class="meal"
+                [id]="'meal-' + day.day.toLowerCase() + '-dinner'"
                 (click)="
                   onMealClick(day.day, 'dinner', day.meals.dinner.name);
                   $event.stopPropagation()

@@ -5,7 +5,7 @@ import {
   signal,
   SimpleChanges,
 } from '@angular/core';
-import { WeeklyMealPlan } from '../../../services/schemas/meal-plan.schema';
+import { WeeklyMealPlan, Ingredient } from '../../../services/schemas/meal-plan.schema';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -116,6 +116,8 @@ export class MenuViewComponent {
 
     ref.afterClosed().subscribe((result: any) => {
       if (result) {
+        const diff = this.compareMealPlans(this.menu(), result);
+        console.log(diff);
         this.menu.set(result);
       }
     });
@@ -124,6 +126,8 @@ export class MenuViewComponent {
   onPromptSubmit(prompt: string) {
     this.promptLoading.set(true);
     this.geminiService.updateMealPlan(prompt, this.menu()).then((result) => {
+      const diff = this.compareMealPlans(this.menu(), result);
+      console.log(diff);
       this.menu.set(result);
       this.promptLoading.set(false);
     });
@@ -137,5 +141,67 @@ export class MenuViewComponent {
       }
       this.loadingShoppingList.set(false);
     });
+  }
+
+  private flashElements(changes: { day: string; meal: string }[]) {
+    // Clear any existing flash classes
+    document.querySelectorAll('.meal.flash').forEach(el => {
+      el.classList.remove('flash');
+    });
+
+    // Add flash class to changed elements
+    changes.forEach(change => {
+      const element = document.getElementById(`meal-${change.day.toLowerCase()}-${change.meal}`);
+      console.log('flashing', `meal-${change.day.toLowerCase()}-${change.meal}`,element);
+      if (element) {
+        element.classList.add('flash');
+      }
+    });
+
+    // Remove flash class after animation completes
+    setTimeout(() => {
+      document.querySelectorAll('.meal.flash').forEach(el => {
+        el.classList.remove('flash');
+      });
+    }, 1000);
+  }
+
+  compareMealPlans(oldPlan: WeeklyMealPlan, newPlan: WeeklyMealPlan): { day: string; meal: string }[] {
+    const changes: { day: string; meal: string }[] = [];
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
+    const mealTypes = ['breakfast', 'lunch', 'dinner'] as const;
+
+    for (const day of days) {
+      for (const mealType of mealTypes) {
+        const oldMeal = oldPlan[day][mealType];
+        const newMeal = newPlan[day][mealType];
+
+        // Check if meal name has changed
+        if (oldMeal.name !== newMeal.name) {
+          changes.push({ day, meal: mealType });
+          continue;
+        }
+
+        // Check if ingredients have changed
+        if (oldMeal.ingredients.length !== newMeal.ingredients.length) {
+          changes.push({ day, meal: mealType });
+          continue;
+        }
+
+        for (let i = 0; i < oldMeal.ingredients.length; i++) {
+          const oldIng = oldMeal.ingredients[i];
+          const newIng = newMeal.ingredients[i];
+          if (oldIng.name !== newIng.name || oldIng.amount !== newIng.amount || oldIng.unit !== newIng.unit) {
+            changes.push({ day, meal: mealType });
+            break;
+          }
+        }
+      }
+    }
+
+    // Trigger flash animation for changed elements
+    this.flashElements(changes);
+    
+    return changes;
   }
 }
