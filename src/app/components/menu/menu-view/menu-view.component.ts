@@ -19,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.component';
 import { GeminiServiceService } from '../../../services/gemini-service.service';
 import { ApiService } from '../../../services/api.service';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -35,7 +34,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIconModule,
     PromptInputComponent,
-    HttpClientModule,
     MatProgressSpinnerModule,
   ],
   providers: [ApiService],

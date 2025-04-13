@@ -14,4 +14,8 @@ export class ApiService {
   postWeekPlan(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/plan/week`, data);
   }
+
+  getShoppingList(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/shopping/list/1`);
+  }
 }

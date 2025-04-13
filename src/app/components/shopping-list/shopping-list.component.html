@@ -1,1 +1,36 @@
-<p>shopping-list works!</p>
+<div class="shopping-list-container">
+  @if (shoppingListLoading()) {
+    <div class="loading-container"> 
+      <mat-spinner indeterminate></mat-spinner>
+    </div>
+  } @else {
+    @for (shop of shops(); track shop) {
+      <div class="shop-section">
+        <div class="shop-header">
+          <h3>{{ shop | titlecase }}</h3>
+          <div class="shop-actions">
+            <button mat-flat-button color="primary">
+              <mat-icon>shopping_cart</mat-icon>
+              Shop Online
+            </button>
+            <button mat-flat-button color="accent">
+              <mat-icon>check_circle</mat-icon>
+              Shopping Done
+            </button>
+          </div>
+        </div>
+        @if (shoppingList()[shop]) {
+          @for (item of shoppingList()[shop]; track item.name) {
+            <div class="shopping-item">
+              <div class="item-left">
+                <mat-checkbox color="primary"></mat-checkbox>
+                <span class="item-name">{{ item.name }}</span>
+              </div>
+              <span class="item-quantity">{{ item.quantity }}g</span>
+            </div>
+          }
+        }
+      </div>
+    }
+  }
+</div>
