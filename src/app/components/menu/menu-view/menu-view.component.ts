@@ -15,8 +15,14 @@ import { menuSample } from '../../../services/schemas/menu-data';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuDialogComponent } from '../menu-dialog/menu-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { PromptInputComponent } from '../../shared/prompt-input/prompt-input.component';
 import { GeminiServiceService } from '../../../services/gemini-service.service';
+import { ApiService } from '../../../services/api.service';
+import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-menu-view',
   standalone: true,
@@ -27,15 +33,24 @@ import { GeminiServiceService } from '../../../services/gemini-service.service';
     MatExpansionModule,
     MatListModule,
     MatButtonModule,
-    PromptInputComponent
+    MatIconModule,
+    PromptInputComponent,
+    HttpClientModule,
+    MatProgressSpinnerModule,
   ],
+  providers: [ApiService],
   templateUrl: './menu-view.component.html',
   styleUrl: './menu-view.component.scss',
 })
 export class MenuViewComponent {
   @Input() menuInput: WeeklyMealPlan = menuSample;
 
-  constructor(private dialog: MatDialog, private geminiService: GeminiServiceService) {}
+  constructor(
+    private dialog: MatDialog,
+    private geminiService: GeminiServiceService,
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['menuInput']) {
@@ -45,7 +60,9 @@ export class MenuViewComponent {
 
   menu = signal<WeeklyMealPlan>(this.menuInput);
 
-  menuJson = computed(() => JSON.stringify(this.menu())); 
+  menuJson = computed(() => JSON.stringify(this.menu()));
+
+  loadingShoppingList = signal(false);
 
   menuList = computed(() => {
     const menu = [];
@@ -91,7 +108,12 @@ export class MenuViewComponent {
     const ref = this.dialog.open(MenuDialogComponent, {
       width: '600px',
       panelClass: 'menu-dialog',
-      data: { day: day ?? '', mealType: mealType ?? '', mealName: mealName ?? '', menu: this.menu() },
+      data: {
+        day: day ?? '',
+        mealType: mealType ?? '',
+        mealName: mealName ?? '',
+        menu: this.menu(),
+      },
     });
 
     ref.afterClosed().subscribe((result: any) => {
@@ -106,6 +128,16 @@ export class MenuViewComponent {
     this.geminiService.updateMealPlan(prompt, this.menu()).then((result) => {
       this.menu.set(result);
       this.promptLoading.set(false);
+    });
+  }
+
+  onGenerateShoppingList() {
+    this.loadingShoppingList.set(true); 
+    this.apiService.postWeekPlan(this.menu()).subscribe((result) => {
+      if (result.status === 200) {
+        this.router.navigate(['/shopping-list']);
+      }
+      this.loadingShoppingList.set(false);
     });
   }
 }

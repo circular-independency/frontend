@@ -133,7 +133,18 @@
       (promptSubmit)="onPromptSubmit($event)"
     ></app-prompt-input>
   </div>
+  <button mat-fab extended color="primary" class="create-fab" (click)="onGenerateShoppingList()">
+    Create
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
 </div>
+
+@if (loadingShoppingList()) {
+  <div class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <span class="loading-text">Generating shopping list...</span>
+  </div>
+}
 
 } @else {
 <p>No meal plan available</p>

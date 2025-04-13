@@ -49,6 +49,8 @@ export class GeminiServiceService {
         },
       });
 
+      console.log('result', result.text);
+
       this.activePrompt.set({
         name: promptName,
         active: false,
