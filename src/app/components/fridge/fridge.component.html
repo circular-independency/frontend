@@ -1,1 +1,17 @@
-<p>fridge works!</p>
+<div class="fridge-container">
+  @if (fridgeItems().length === 0) {
+    <div class="empty-state">
+      <p>Your fridge is empty</p>
+    </div>
+  } @else {
+    <h3>Fridge</h3>
+    @for (item of fridgeItems(); track item.name) {
+      <div class="fridge-item">
+        <div class="item-left">
+          <span class="item-name">{{ item.name }}</span>
+        </div>
+        <span class="item-quantity">{{ item.quantity }}g</span>
+      </div>
+    }
+  }
+</div>

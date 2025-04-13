@@ -26,4 +26,8 @@ export class ApiService {
   shopBU(shop: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/shopping/shop/${shop}/1/1`);
   }
+
+  getFridgeItems(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/storage/list/1`);
+  }
 }
