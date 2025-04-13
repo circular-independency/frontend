@@ -117,7 +117,6 @@ export class MenuViewComponent {
     ref.afterClosed().subscribe((result: any) => {
       if (result) {
         const diff = this.compareMealPlans(this.menu(), result);
-        console.log(diff);
         this.menu.set(result);
       }
     });
@@ -127,7 +126,6 @@ export class MenuViewComponent {
     this.promptLoading.set(true);
     this.geminiService.updateMealPlan(prompt, this.menu()).then((result) => {
       const diff = this.compareMealPlans(this.menu(), result);
-      console.log(diff);
       this.menu.set(result);
       this.promptLoading.set(false);
     });
@@ -153,7 +151,6 @@ export class MenuViewComponent {
     changes.forEach((change, index) => {
       setTimeout(() => {
         const element = document.getElementById(`meal-${change.day.toLowerCase()}-${change.meal}`);
-        console.log('flashing', `meal-${change.day.toLowerCase()}-${change.meal}`, element);
         if (element) {
           element.classList.add('flash');
           

@@ -42,7 +42,6 @@ export class ShoppingListComponent {
     this.apiService.getShoppingList().subscribe((result) => {
       const shoppingList: Record<string, ShoppingItem[]> = {};
       result.forEach((e: ShoppingItemResponse) => {
-        console.log(e);
         const shoppingItem = {
           name: e.name_slo,
           quantity: e.grams_total,
@@ -59,19 +58,16 @@ export class ShoppingListComponent {
 
       this.shoppingList.set(shoppingList);
       this.shoppingListLoading.set(false);
-      console.log(this.shoppingList());
     });
   }
 
   shopBU(shop: string) {
     this.apiService.shopBU(shop).subscribe((result) => {
-      console.log(result);
     });
   }
 
   shoppingDone(shop: string) {
     this.apiService.shoppingDone(shop).subscribe((result) => {
-      console.log(result);
     });
   }
   

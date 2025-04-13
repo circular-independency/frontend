@@ -27,7 +27,6 @@ export class FridgeComponent {
 
   ngOnInit() {
     this.apiService.getFridgeItems().subscribe((data: FridgeItemResponse[]) => {
-      console.log(data);
       this.fridgeItems.set(data.map((item) => ({
         name: item.name_slo,
         quantity: item.grams,
