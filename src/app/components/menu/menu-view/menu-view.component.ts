@@ -149,21 +149,21 @@ export class MenuViewComponent {
       el.classList.remove('flash');
     });
 
-    // Add flash class to changed elements
-    changes.forEach(change => {
-      const element = document.getElementById(`meal-${change.day.toLowerCase()}-${change.meal}`);
-      console.log('flashing', `meal-${change.day.toLowerCase()}-${change.meal}`,element);
-      if (element) {
-        element.classList.add('flash');
-      }
+    // Add flash class to changed elements with delay
+    changes.forEach((change, index) => {
+      setTimeout(() => {
+        const element = document.getElementById(`meal-${change.day.toLowerCase()}-${change.meal}`);
+        console.log('flashing', `meal-${change.day.toLowerCase()}-${change.meal}`, element);
+        if (element) {
+          element.classList.add('flash');
+          
+          // Remove flash class after animation completes
+          setTimeout(() => {
+            element.classList.remove('flash');
+          }, 500);
+        }
+      }, index * 50);
     });
-
-    // Remove flash class after animation completes
-    setTimeout(() => {
-      document.querySelectorAll('.meal.flash').forEach(el => {
-        el.classList.remove('flash');
-      });
-    }, 1000);
   }
 
   compareMealPlans(oldPlan: WeeklyMealPlan, newPlan: WeeklyMealPlan): { day: string; meal: string }[] {

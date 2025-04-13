@@ -223,7 +223,8 @@
   }
   50% {
     background-color: var(--mat-sys-primary);
-    opacity: 0.2;
+    color: var(--mat-sys-on-primary);
+    opacity: 0.3;
   }
   100% {
     background-color: transparent;
